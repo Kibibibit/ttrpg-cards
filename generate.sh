@@ -1,4 +1,9 @@
 #!/bin/bash
+
+
+python ./generate.py
+
+
 wkhtmltopdf \
     --enable-local-file-access \
     -B 0 -L 0 -R 0 -T 0 \

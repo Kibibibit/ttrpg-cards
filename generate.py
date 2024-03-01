@@ -176,6 +176,7 @@ propertiesList = {
 
 outText = ""
 
+print("Generating cards")
 for index, row in frame.iterrows():
 
     cardHtml = templateFile
@@ -230,7 +231,6 @@ for index, row in frame.iterrows():
         if (row[attribute] != None):
             if (str(row[attribute]) != "nan"):
                 rowValue = row[attribute]
-                print(rowValue, attribute)
                 if (type(rowValue) == float):
                     rowValue = int(rowValue)
                 
@@ -258,6 +258,7 @@ with open("./index.html", "w") as f:
     f.close()
 
 
+print("Done")
 
 cssText = cssTemplate
 
@@ -266,6 +267,7 @@ coins = ["CP","SP","EP","GP","PP"]
 coinReplacements = ["LIGHT_COLOUR","MID_COLOUR","DARK_COLOUR"]
 rarities = ["COMMON", "UNCOMMON", "RARE", "VERY_RARE","LEGENDARY", "UNIDENTIFIED", "CURSED"]
 
+print("Generating CSS")
 
 for rarity in rarities:
     rarityCss = cssRarityTemplate
@@ -301,7 +303,6 @@ for coin in coins:
 for rarity in rarities:
     for colour in rarityColours[rarity]:
         key = '${{'+rarity+"_"+colour+'}}'
-        print(key)
         while key in cssText:
             cssText = cssText.replace(key, rarityColours[rarity][colour])
 
@@ -311,3 +312,5 @@ for rarity in rarities:
 with open("./index.css", "w") as f:
     f.write(cssText)
     f.close()
+
+print("Done")

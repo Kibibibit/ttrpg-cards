@@ -1,0 +1,32 @@
+.card-base-${{rarity}} {
+    background-color: ${{${{RARITY}}_CARD_BASE_COLOUR}};
+}
+
+.card-header-${{rarity}} {
+    border-top-color: ${{${{RARITY}}_CARD_LIGHT_COLOUR}};
+    border-right-color: ${{${{RARITY}}_CARD_LIGHT_COLOUR}};
+    border-bottom-color: ${{${{RARITY}}_CARD_DARK_COLOUR}};
+    border-left-color: ${{${{RARITY}}_CARD_DARK_COLOUR}};
+    background-color: ${{${{RARITY}}_CARD_MID_COLOUR}};
+}
+
+.card-title-${{rarity}} {
+    text-shadow: 0.1mm 0.1mm ${{${{RARITY}}_CARD_DARK_COLOUR}};
+}
+
+.card-footer-${{rarity}} {
+    border-top-color: ${{${{RARITY}}_CARD_LIGHT_COLOUR}};
+    border-right-color: ${{${{RARITY}}_CARD_LIGHT_COLOUR}};
+    border-bottom-color: ${{${{RARITY}}_CARD_DARK_COLOUR}};
+    border-left-color: ${{${{RARITY}}_CARD_DARK_COLOUR}};
+    background-color: ${{${{RARITY}}_CARD_MID_COLOUR}};
+}
+
+.card-body-${{rarity}} {
+    border-color: ${{${{RARITY}}_CARD_BODY_DARK_COLOUR}};
+    background-color: ${{${{RARITY}}_CARD_BODY_LIGHT_COLOUR}};
+}
+
+.card-attribute-${{rarity}} {
+    border-bottom: solid ${{${{RARITY}}_CARD_BODY_DARK_COLOUR}} 0.5mm;
+}

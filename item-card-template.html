@@ -1,0 +1,39 @@
+<div class="bounding-box" id="template">
+    <div class="base">
+        <div class="cutline cutline-a"></div>
+        <div class="cutline cutline-b"></div>
+        <div class="cutline cutline-c"></div>
+        <div class="cutline cutline-d"></div>
+
+
+        <div class="bleed-box" id="bleed-box">
+            <div class="card-base ${{CARD_BASE_COLOUR}}" id="card-base">
+                <div class="card-header ${{CARD_HEADER_COLOUR}}" id="card-header">
+                    <div class="card-title ${{CARD_TITLE_COLOUR}}" id="card-title-${{CARD_NUMBER}}">${{CARD_TITLE}}</div>
+                </div>
+                <div class="card-body ${{CARD_BODY_COLOUR}}" id="card-body">
+                    <div id="card-attributes">
+                        ${{ATTRIBUTES}}
+                    </div>
+                    
+                    <div class="card-body-text" id="card-body-text">
+                        ${{CARD_BODY}}
+                        <div class="card-properties-text">
+                            ${{CARD_PROPERTIES}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer ${{CARD_FOOTER_COLOUR}}" id="card-footer">
+                    <div class="card-type" id="card-type">${{CARD_TYPE}}</div>
+
+                    ${{CARD_COST}}
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

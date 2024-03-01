@@ -1,0 +1,10 @@
+.coin-colour-${{coin}} {
+    border-right-color: ${{${{COIN}}_LIGHT_COLOUR}};
+    border-top-color: ${{${{COIN}}_LIGHT_COLOUR}};
+
+    background-color: ${{${{COIN}}_MID_COLOUR}};
+
+    border-bottom-color: ${{${{COIN}}_DARK_COLOUR}};
+    border-left-color: ${{${{COIN}}_DARK_COLOUR}};
+    text-shadow: 0.1mm 0.1mm ${{${{COIN}}_DARK_COLOUR}};
+}

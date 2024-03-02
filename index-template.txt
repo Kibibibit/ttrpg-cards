@@ -197,3 +197,20 @@ body {
     font-style: italic;
     font-size: 7.5pt;
 }
+
+.card-back-circle {
+    position: absolute;
+    top:0; left:0; bottom:0; right:0;
+    margin:auto;
+    width: 70%;
+    border: solid 2mm;
+    aspect-ratio:1;
+    border-radius:100%;
+}
+
+.card-back-icon {
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    display:block;
+    margin:auto;
+}

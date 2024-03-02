@@ -1,0 +1,11 @@
+.card-type-${{type}} {
+    background-color: ${{${{TYPE}}_BASE_COLOUR}};
+}
+
+.card-type-circle-${{type}} {
+    background-color: ${{${{TYPE}}_MID_COLOUR}};
+    border-top-color: ${{${{TYPE}}_LIGHT_COLOUR}};
+    border-left-color: ${{${{TYPE}}_LIGHT_COLOUR}};
+    border-bottom-color: ${{${{TYPE}}_DARK_COLOUR}};
+    border-right-color: ${{${{TYPE}}_DARK_COLOUR}};
+}

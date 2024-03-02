@@ -14,13 +14,20 @@ costFile = None
 cssTemplate = None
 cssRarityTemplate = None
 cssCoinTemplate = None
+cssBackTemplate = None
 
+coins = ["CP","SP","EP","GP","PP"]
+coinReplacements = ["LIGHT_COLOUR","MID_COLOUR","DARK_COLOUR"]
+rarities = ["COMMON", "UNCOMMON", "RARE", "VERY_RARE","LEGENDARY", "UNIDENTIFIED", "CURSED"]
+itemTypes = ["WEAPON","POTION","ARMOUR","ITEM"]
 
 with open("./index-template.txt") as f:
     cssTemplate = f.read()
+    f.close()
 
 with open("./index-template.html") as f:
     indexFile = f.read()
+    f.close()
 
 with open("./item-card-template.html") as f:
     templateFile = f.read()
@@ -36,6 +43,10 @@ with open("./index-rarities-template.txt") as f:
 
 with open("./index-coins-template.txt") as f:
     cssCoinTemplate = f.read()
+    f.close()
+
+with open("./index-backs-template.txt") as f:
+    cssBackTemplate = f.read()
     f.close()
 
 
@@ -161,6 +172,54 @@ rarityColours = {
     }
 }
 
+itemTypeColors = {
+    "WEAPON": {
+        "BASE_COLOUR":coinColors["DARK_COLOUR"]["PP"],
+        "LIGHT_COLOUR":coinColors["MID_COLOUR"]["PP"],
+        "MID_COLOUR": coinColors["LIGHT_COLOUR"]["PP"],
+        "DARK_COLOUR": coinColors["MID_COLOUR"]["PP"]
+    },
+    "POTION":{
+        "BASE_COLOUR":coinColors["DARK_COLOUR"]["EP"],
+        "LIGHT_COLOUR":coinColors["MID_COLOUR"]["EP"],
+        "MID_COLOUR": coinColors["LIGHT_COLOUR"]["EP"],
+        "DARK_COLOUR": coinColors["MID_COLOUR"]["EP"]
+    },
+    "ARMOUR": {
+        "BASE_COLOUR":coinColors["DARK_COLOUR"]["CP"],
+        "LIGHT_COLOUR":coinColors["MID_COLOUR"]["CP"],
+        "MID_COLOUR": coinColors["LIGHT_COLOUR"]["CP"],
+        "DARK_COLOUR": coinColors["MID_COLOUR"]["CP"]
+    },
+    "ITEM": {
+        "BASE_COLOUR":coinColors["DARK_COLOUR"]["GP"],
+        "LIGHT_COLOUR":coinColors["MID_COLOUR"]["GP"],
+        "MID_COLOUR": coinColors["LIGHT_COLOUR"]["GP"],
+        "DARK_COLOUR": coinColors["MID_COLOUR"]["GP"]
+    }
+}
+
+itemTypeIconPaths = {
+    "WEAPON":"./svg-icons/sword.svg",
+    "ARMOUR":"./svg-icons/shield.svg",
+    "POTION":"./svg-icons/potion.svg",
+    "ITEM":"./svg-icons/item.svg"
+}
+
+itemTypeIcons = {
+}
+
+for itemType in itemTypes:
+    with open(itemTypeIconPaths[itemType]) as f:
+        svg = f.read()
+        while "200mm" in svg:
+            svg = svg.replace("200mm", "30mm")
+        while "#000000" in svg:
+            svg = svg.replace("#000000", itemTypeColors[itemType]["DARK_COLOUR"])
+        svg = svg.replace("<svg","<svg class=\"card-back-icon\"")
+        itemTypeIcons[itemType] = svg
+        f.close()
+
 attributeList = [
     "Damage",
     "Range",
@@ -187,6 +246,7 @@ for index, row in frame.iterrows():
     cost = row["Cost"]
     coin = row["Coin"]
     cardDesc = row["Desc"]
+    itemType = row["Back"]
 
     cardHtml = cardHtml.replace("${{CARD_TITLE}}",name)
     cardHtml = cardHtml.replace("${{CARD_TYPE}}",cardType)
@@ -226,6 +286,7 @@ for index, row in frame.iterrows():
                     propertyString += ", "+property
 
     cardHtml = cardHtml.replace("${{CARD_PROPERTIES}}",propertyString)
+    
 
     for attribute in attributeList:
         if (row[attribute] != None):
@@ -242,6 +303,10 @@ for index, row in frame.iterrows():
                 newAttributeHtml = newAttributeHtml.replace("${{ATTRIBUTE_COLOUR}}","card-attribute-"+cardRarity.lower())
                 attributeHtml += newAttributeHtml
     cardHtml = cardHtml.replace("${{ATTRIBUTES}}", attributeHtml)
+
+    cardHtml = cardHtml.replace("${{CARD_BACK_TYPE}}", "card-type-"+itemType.lower())
+    cardHtml = cardHtml.replace("${{CARD_BACK_ICON}}", itemTypeIcons[itemType])
+    cardHtml = cardHtml.replace("${{CARD_BACK_CIRCLE}}", "card-type-circle-"+itemType.lower())
 
     outText += "\n"
     outText += cardHtml
@@ -263,9 +328,7 @@ print("Done")
 cssText = cssTemplate
 
 
-coins = ["CP","SP","EP","GP","PP"]
-coinReplacements = ["LIGHT_COLOUR","MID_COLOUR","DARK_COLOUR"]
-rarities = ["COMMON", "UNCOMMON", "RARE", "VERY_RARE","LEGENDARY", "UNIDENTIFIED", "CURSED"]
+
 
 print("Generating CSS")
 
@@ -289,6 +352,15 @@ for coin in coins:
     
     cssText += "\n" + coinCss
 
+for itemType in itemTypes:
+    backCss = cssBackTemplate
+    while "${{type}}" in backCss:
+        backCss = backCss.replace("${{type}}", itemType.lower())
+    while "${{TYPE}}" in backCss:
+        backCss = backCss.replace("${{TYPE}}", itemType)
+    
+    cssText += "\n" + backCss
+
 
 for coin in coins:
     for coinReplacement in coinReplacements:
@@ -298,11 +370,18 @@ for coin in coins:
             cssText = cssText.replace(key, coinColors[coinReplacement][coin])
 
 
+for itemType in itemTypes:
+    for colour in itemTypeColors[itemType]:
+        key = '${{'+itemType+"_"+colour+"}}"
+        print(key)
+        while key in cssText:
+            cssText = cssText.replace(key, itemTypeColors[itemType][colour])
 
 
 for rarity in rarities:
     for colour in rarityColours[rarity]:
         key = '${{'+rarity+"_"+colour+'}}'
+        
         while key in cssText:
             cssText = cssText.replace(key, rarityColours[rarity][colour])
 

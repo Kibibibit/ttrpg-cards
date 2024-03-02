@@ -373,7 +373,6 @@ for coin in coins:
 for itemType in itemTypes:
     for colour in itemTypeColors[itemType]:
         key = '${{'+itemType+"_"+colour+"}}"
-        print(key)
         while key in cssText:
             cssText = cssText.replace(key, itemTypeColors[itemType][colour])
 

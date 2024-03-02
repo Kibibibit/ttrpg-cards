@@ -202,7 +202,8 @@ body {
     position: absolute;
     top:0; left:0; bottom:0; right:0;
     margin:auto;
-    width: 70%;
+    width: 40mm;
+    height: 40mm;
     border: solid 2mm;
     aspect-ratio:1;
     border-radius:100%;
